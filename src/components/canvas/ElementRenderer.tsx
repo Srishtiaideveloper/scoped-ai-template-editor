@@ -4,7 +4,7 @@ import {
   ViewportId,
   ResponsiveScope
 } from '../../types/template';
-import { Sparkles, Coffee, Flame, Sprout, PackageCheck, Star, Award } from 'lucide-react';
+import { Sparkles, Coffee, Flame, Sprout, PackageCheck, Star, Award, HeartHandshake } from 'lucide-react';
 
 interface ElementRendererProps {
   element: ResolvedElement;
@@ -26,6 +26,7 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
 }) => {
   const [isInlineEditing, setIsInlineEditing] = useState(false);
   const [tempText, setTempText] = useState('');
+  const [imageError, setImageError] = useState(false);
 
   const { styles, content } = element;
 
@@ -69,50 +70,62 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
     }
   };
 
-  // Self-contained, zero-error vector graphic illustrations
-  const renderCardIllustration = (id: string) => {
-    if (id.includes('feature_1')) {
+  // Safe image component with automatic fallback
+  const renderCardMedia = () => {
+    if (content.imageUrl && !imageError) {
+      return (
+        <div className="w-full h-44 rounded-xl overflow-hidden mb-3 relative group/img border border-slate-800/80 shadow-md">
+          <img
+            src={content.imageUrl}
+            alt={content.imageAlt || content.title || 'Specialty Coffee'}
+            loading="lazy"
+            onError={() => setImageError(true)}
+            className="w-full h-full object-cover group-hover/img:scale-105 transition duration-500"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+        </div>
+      );
+    }
+
+    // Zero-error fallback vector illustrations
+    if (element.id.includes('feature_1')) {
       return (
         <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-2">
           <Sprout className="w-6 h-6" />
         </div>
       );
     }
-    if (id.includes('feature_2')) {
+    if (element.id.includes('feature_2')) {
       return (
         <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-2">
           <Flame className="w-6 h-6 animate-pulse" />
         </div>
       );
     }
-    if (id.includes('feature_3')) {
+    if (element.id.includes('feature_3')) {
       return (
         <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-2">
           <PackageCheck className="w-6 h-6" />
         </div>
       );
     }
-    if (id.includes('product_card_1')) {
+    if (element.id.includes('product_card_1')) {
       return (
-        <div className="w-full h-36 rounded-lg bg-gradient-to-br from-amber-950/40 via-slate-900 to-slate-950 border border-amber-500/20 flex flex-col items-center justify-center relative overflow-hidden mb-3 group-hover:border-amber-500/40 transition">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(212,170,79,0.15),transparent_70%)]" />
+        <div className="w-full h-36 rounded-lg bg-gradient-to-br from-amber-950/40 via-slate-900 to-slate-950 border border-amber-500/20 flex flex-col items-center justify-center relative overflow-hidden mb-3">
           <Coffee className="w-10 h-10 text-amber-400 mb-1.5 z-10" />
           <span className="text-[10px] uppercase font-mono tracking-widest text-amber-300 font-bold z-10">
             Washed Micro-Lot
           </span>
-          <span className="text-[9px] text-slate-400 z-10">Altitude: 2,100 MASL</span>
         </div>
       );
     }
-    if (id.includes('product_card_2')) {
+    if (element.id.includes('product_card_2')) {
       return (
-        <div className="w-full h-36 rounded-lg bg-gradient-to-br from-amber-950/40 via-slate-900 to-slate-950 border border-amber-500/30 flex flex-col items-center justify-center relative overflow-hidden mb-3 group-hover:border-amber-500/60 transition">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(212,170,79,0.25),transparent_70%)]" />
+        <div className="w-full h-36 rounded-lg bg-gradient-to-br from-amber-950/40 via-slate-900 to-slate-950 border border-amber-500/30 flex flex-col items-center justify-center relative overflow-hidden mb-3">
           <Award className="w-10 h-10 text-amber-300 mb-1.5 z-10 animate-bounce-short" />
           <span className="text-[10px] uppercase font-mono tracking-widest text-amber-200 font-bold z-10">
             Pink Bourbon Reserve
           </span>
-          <span className="text-[9px] text-amber-400/80 z-10">Anaerobic Fermentation</span>
         </div>
       );
     }
@@ -218,11 +231,36 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
             {content.subtitle}
           </p>
 
-          {/* Steaming Coffee Roastery SVG Visual Artwork */}
-          <div className="my-3 py-2 flex items-center justify-center">
-            <div className="relative flex items-center justify-center p-4 rounded-2xl bg-slate-950/60 border border-amber-500/20 shadow-inner">
-              <Coffee className="w-12 h-12 text-amber-400 animate-pulse" />
-              <div className="absolute -top-1 w-3 h-3 bg-amber-400/30 rounded-full blur-sm animate-ping" />
+          {/* REAL MOVING STEAM COFFEE CUP SHOWCASE */}
+          <div className="my-4 relative flex flex-col items-center justify-center">
+            {/* Ambient Radial Golden Glow */}
+            <div className="absolute w-64 h-64 bg-amber-500/15 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
+
+            {/* Steaming Wisps Rising Above Cup */}
+            <div className="relative w-32 h-16 pointer-events-none flex justify-center items-end gap-3 mb-1">
+              <div className="w-1.5 h-8 bg-gradient-to-t from-amber-200/60 to-transparent rounded-full blur-[1px] animate-steam-1" />
+              <div className="w-2 h-10 bg-gradient-to-t from-white/70 to-transparent rounded-full blur-[1px] animate-steam-2" />
+              <div className="w-1.5 h-7 bg-gradient-to-t from-amber-200/50 to-transparent rounded-full blur-[1px] animate-steam-3" />
+            </div>
+
+            {/* Real Photographic Steaming Artisan Cup with Glassmorphism Frame */}
+            <div className="relative w-72 h-44 rounded-2xl overflow-hidden border-2 border-amber-500/40 shadow-2xl group/cup">
+              <img
+                src={content.imageUrl || 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80'}
+                alt="Real artisan pour of steaming specialty coffee"
+                loading="eager"
+                onError={() => setImageError(true)}
+                className="w-full h-full object-cover group-hover/cup:scale-105 transition duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
+              <div className="absolute bottom-2 left-3 right-3 flex items-center justify-between text-[11px] font-mono text-amber-300">
+                <span className="flex items-center gap-1 font-bold">
+                  <Coffee className="w-3.5 h-3.5" /> Freshly Brewed Batch #26
+                </span>
+                <span className="text-[10px] bg-amber-500/20 text-amber-200 px-1.5 py-0.2 rounded border border-amber-500/30">
+                  94°C Extraction
+                </span>
+              </div>
             </div>
           </div>
 
@@ -252,8 +290,8 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
 
       {element.type === 'card' && (
         <div className="flex flex-col justify-between h-full space-y-3">
-          {/* Card vector illustration */}
-          {renderCardIllustration(element.id)}
+          {/* Card Media (Real Photography with Safe Vector Fallback) */}
+          {renderCardMedia()}
 
           {content.badge && (
             <div className="self-start text-[11px] font-semibold bg-amber-500/15 border border-amber-500/30 text-amber-300 px-2.5 py-0.5 rounded-md">
@@ -314,6 +352,16 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
 
       {element.type === 'testimonial' && (
         <div className="flex flex-col items-center text-center space-y-3">
+          {content.imageUrl && (
+            <div className="w-14 h-14 rounded-full overflow-hidden border-2 border-amber-500/40 shadow-lg mb-1">
+              <img
+                src={content.imageUrl}
+                alt="Marcus Vance Q-Grader"
+                loading="lazy"
+                className="w-full h-full object-cover"
+              />
+            </div>
+          )}
           {content.badge && (
             <div className="text-xs font-semibold text-amber-400">
               {content.badge}
