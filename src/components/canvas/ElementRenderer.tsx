@@ -4,13 +4,13 @@ import {
   ViewportId,
   ResponsiveScope
 } from '../../types/template';
-import { Sparkles, Edit3, MoveUp, MoveDown, Layers } from 'lucide-react';
+import { Sparkles, Coffee, Flame, Sprout, PackageCheck, Star, Award } from 'lucide-react';
 
 interface ElementRendererProps {
   element: ResolvedElement;
   isSelected: boolean;
   activeViewport: ViewportId;
-  activeScope: ResponsiveScope;
+  activeScope?: ResponsiveScope;
   onSelect: (e: React.MouseEvent) => void;
   onUpdateContent: (key: string, value: string) => void;
   children?: React.ReactNode;
@@ -20,7 +20,6 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
   element,
   isSelected,
   activeViewport,
-  activeScope,
   onSelect,
   onUpdateContent,
   children,
@@ -70,6 +69,56 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
     }
   };
 
+  // Self-contained, zero-error vector graphic illustrations
+  const renderCardIllustration = (id: string) => {
+    if (id.includes('feature_1')) {
+      return (
+        <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-2">
+          <Sprout className="w-6 h-6" />
+        </div>
+      );
+    }
+    if (id.includes('feature_2')) {
+      return (
+        <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-2">
+          <Flame className="w-6 h-6 animate-pulse" />
+        </div>
+      );
+    }
+    if (id.includes('feature_3')) {
+      return (
+        <div className="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 mb-2">
+          <PackageCheck className="w-6 h-6" />
+        </div>
+      );
+    }
+    if (id.includes('product_card_1')) {
+      return (
+        <div className="w-full h-36 rounded-lg bg-gradient-to-br from-amber-950/40 via-slate-900 to-slate-950 border border-amber-500/20 flex flex-col items-center justify-center relative overflow-hidden mb-3 group-hover:border-amber-500/40 transition">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(212,170,79,0.15),transparent_70%)]" />
+          <Coffee className="w-10 h-10 text-amber-400 mb-1.5 z-10" />
+          <span className="text-[10px] uppercase font-mono tracking-widest text-amber-300 font-bold z-10">
+            Washed Micro-Lot
+          </span>
+          <span className="text-[9px] text-slate-400 z-10">Altitude: 2,100 MASL</span>
+        </div>
+      );
+    }
+    if (id.includes('product_card_2')) {
+      return (
+        <div className="w-full h-36 rounded-lg bg-gradient-to-br from-amber-950/40 via-slate-900 to-slate-950 border border-amber-500/30 flex flex-col items-center justify-center relative overflow-hidden mb-3 group-hover:border-amber-500/60 transition">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(212,170,79,0.25),transparent_70%)]" />
+          <Award className="w-10 h-10 text-amber-300 mb-1.5 z-10 animate-bounce-short" />
+          <span className="text-[10px] uppercase font-mono tracking-widest text-amber-200 font-bold z-10">
+            Pink Bourbon Reserve
+          </span>
+          <span className="text-[9px] text-amber-400/80 z-10">Anaerobic Fermentation</span>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div
       data-element-id={element.id}
@@ -101,7 +150,7 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
       {element.type === 'navbar' && (
         <div className="flex items-center justify-between w-full">
           <div
-            className="text-lg font-bold tracking-tight cursor-text"
+            className="text-lg font-bold tracking-tight cursor-text flex items-center gap-2"
             onDoubleClick={(e) => handleDoubleClick(e, content.title || '')}
           >
             {isInlineEditing ? (
@@ -139,7 +188,8 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
         <div className="flex flex-col items-center justify-center space-y-4">
           {content.badge && (
             <div className="inline-flex items-center gap-1 bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold px-3 py-1 rounded-full mb-2">
-              {content.badge}
+              <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
+              <span>{content.badge}</span>
             </div>
           )}
 
@@ -168,10 +218,18 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
             {content.subtitle}
           </p>
 
+          {/* Steaming Coffee Roastery SVG Visual Artwork */}
+          <div className="my-3 py-2 flex items-center justify-center">
+            <div className="relative flex items-center justify-center p-4 rounded-2xl bg-slate-950/60 border border-amber-500/20 shadow-inner">
+              <Coffee className="w-12 h-12 text-amber-400 animate-pulse" />
+              <div className="absolute -top-1 w-3 h-3 bg-amber-400/30 rounded-full blur-sm animate-ping" />
+            </div>
+          </div>
+
           {content.buttonText && (
-            <div className="pt-4">
-              <button className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 px-8 py-3.5 rounded-xl font-bold text-sm shadow-glow transition active:scale-95">
-                {content.buttonText}
+            <div className="pt-2">
+              <button className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 px-8 py-3.5 rounded-xl font-bold text-sm shadow-glow transition active:scale-95 flex items-center gap-2">
+                <span>{content.buttonText}</span>
               </button>
             </div>
           )}
@@ -194,6 +252,9 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
 
       {element.type === 'card' && (
         <div className="flex flex-col justify-between h-full space-y-3">
+          {/* Card vector illustration */}
+          {renderCardIllustration(element.id)}
+
           {content.badge && (
             <div className="self-start text-[11px] font-semibold bg-amber-500/15 border border-amber-500/30 text-amber-300 px-2.5 py-0.5 rounded-md">
               {content.badge}
@@ -236,7 +297,8 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
           {(content.title || content.subtitle) && (
             <div className="text-center space-y-2 mb-6">
               {content.badge && (
-                <span className="text-xs font-bold text-amber-400 uppercase tracking-widest bg-amber-950/60 border border-amber-800/40 px-3 py-1 rounded-full">
+                <span className="text-xs font-bold text-amber-400 uppercase tracking-widest bg-amber-950/60 border border-amber-800/40 px-3 py-1 rounded-full inline-flex items-center gap-1.5">
+                  <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
                   {content.badge}
                 </span>
               )}
