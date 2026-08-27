@@ -6,7 +6,6 @@ import {
 } from '../../types/template';
 import { resolveElement } from '../../core/resolutionEngine';
 import { ElementRenderer } from './ElementRenderer';
-import { MousePointer, ZoomIn, ZoomOut, Maximize2 } from 'lucide-react';
 
 interface CanvasRootProps {
   template: TemplateModel;
@@ -37,10 +36,10 @@ export const CanvasRoot: React.FC<CanvasRootProps> = ({
   const [marqueeStart, setMarqueeStart] = useState<{ x: number; y: number } | null>(null);
   const [marqueeCurrent, setMarqueeCurrent] = useState<{ x: number; y: number } | null>(null);
 
-  // Viewport Device Frame Widths
+  // Viewport Device Frame Widths (with max-w-full to prevent horizontal window clipping)
   const getViewportWidth = (vp: ViewportId): string => {
     switch (vp) {
-      case 'desktop': return '1200px';
+      case 'desktop': return 'min(100%, 1200px)';
       case 'tablet': return '768px';
       case 'mobile': return '375px';
       default: return '100%';
@@ -48,10 +47,8 @@ export const CanvasRoot: React.FC<CanvasRootProps> = ({
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
-    // Only start marquee if clicking directly on background container or canvas wrapper
     const target = e.target as HTMLElement;
     if (target.dataset.elementId) return;
-
     if (e.button !== 0) return; // Left mouse only
 
     if (containerRef.current) {
@@ -89,7 +86,6 @@ export const CanvasRoot: React.FC<CanvasRootProps> = ({
     const minY = Math.min(marqueeStart.y, marqueeCurrent.y);
     const maxY = Math.max(marqueeStart.y, marqueeCurrent.y);
 
-    // If drag was tiny, treat as clear selection or background click
     if (Math.abs(maxX - minX) < 5 && Math.abs(maxY - minY) < 5) {
       if (!e.shiftKey && !e.ctrlKey && !e.metaKey) {
         onClearSelection();
@@ -114,7 +110,6 @@ export const CanvasRoot: React.FC<CanvasRootProps> = ({
         bottom: nodeRect.bottom - containerRect.top + containerRef.current!.scrollTop,
       };
 
-      // Check bounding box intersection
       if (
         nodeBox.left < maxX &&
         nodeBox.right > minX &&
@@ -135,7 +130,6 @@ export const CanvasRoot: React.FC<CanvasRootProps> = ({
     setMarqueeCurrent(null);
   };
 
-  // Keyboard navigation for selection
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
@@ -152,7 +146,6 @@ export const CanvasRoot: React.FC<CanvasRootProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [template, onClearSelection, onSelectMultiple]);
 
-  // Compute Marquee Box Coordinates
   const marqueeBoxStyle: React.CSSProperties = marqueeStart && marqueeCurrent ? {
     left: `${Math.min(marqueeStart.x, marqueeCurrent.x)}px`,
     top: `${Math.min(marqueeStart.y, marqueeCurrent.y)}px`,
@@ -160,7 +153,6 @@ export const CanvasRoot: React.FC<CanvasRootProps> = ({
     height: `${Math.abs(marqueeCurrent.y - marqueeStart.y)}px`,
   } : {};
 
-  // Render elements tree
   const rootElements = template.rootElementIds.map(id => template.elements[id]).filter(Boolean);
 
   return (
@@ -169,7 +161,7 @@ export const CanvasRoot: React.FC<CanvasRootProps> = ({
       onMouseDown={handleMouseDown}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
-      className="flex-1 bg-slate-950 overflow-auto relative p-6 flex flex-col items-center select-none"
+      className="flex-1 bg-slate-950 overflow-auto relative p-6 pt-10 flex flex-col items-center select-none"
     >
       {/* Marquee Selection Drag Overlay */}
       {isMarqueeActive && marqueeStart && marqueeCurrent && (
@@ -179,12 +171,12 @@ export const CanvasRoot: React.FC<CanvasRootProps> = ({
         />
       )}
 
-      {/* Device Frame Wrapper */}
+      {/* Device Frame Wrapper with Headroom Padding for top element selection tags */}
       <div
         ref={canvasRef}
         style={{ width: getViewportWidth(activeViewport) }}
-        className={`transition-all duration-300 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden my-auto shrink-0 flex flex-col relative ${
-          activeViewport === 'mobile' ? 'ring-4 ring-slate-800 rounded-[2.5rem] border-8 border-slate-950 p-2' : ''
+        className={`transition-all duration-300 bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-visible my-auto shrink-0 flex flex-col relative ${
+          activeViewport === 'mobile' ? 'ring-4 ring-slate-800 rounded-[2.5rem] border-8 border-slate-950 p-2 overflow-hidden' : ''
         }`}
       >
         {/* Device Top Speaker Notch for Mobile View */}
@@ -195,13 +187,12 @@ export const CanvasRoot: React.FC<CanvasRootProps> = ({
           </div>
         )}
 
-        {/* Template Element Render Stream */}
-        <div className="w-full flex flex-col space-y-4 p-4">
+        {/* Template Element Render Stream with safe padding */}
+        <div className="w-full flex flex-col space-y-4 p-4 pt-8">
           {rootElements.map((element) => {
             const resolvedEl = resolveElement(element, activeViewport, activeScope);
             const isSelected = selectedIds.includes(element.id);
 
-            // If it's a container/grid/section with children, render children
             const childElements = Object.values(template.elements).filter(
               (child) => child.parentId === element.id
             );

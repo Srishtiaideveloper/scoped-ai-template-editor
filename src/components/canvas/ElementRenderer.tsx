@@ -161,9 +161,9 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
 
       {/* Render Component Content based on Element Type */}
       {element.type === 'navbar' && (
-        <div className="flex items-center justify-between w-full">
+        <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 w-full">
           <div
-            className="text-lg font-bold tracking-tight cursor-text flex items-center gap-2"
+            className="text-base sm:text-lg font-extrabold tracking-tight cursor-text flex items-center gap-2 text-amber-300 shrink-0"
             onDoubleClick={(e) => handleDoubleClick(e, content.title || '')}
           >
             {isInlineEditing ? (
@@ -181,7 +181,7 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
             )}
           </div>
 
-          <div className="hidden md:flex items-center gap-6 text-sm text-slate-300">
+          <div className="hidden lg:flex items-center gap-6 text-sm text-slate-300 shrink-0">
             {content.items?.map((item, idx) => (
               <span key={idx} className="hover:text-amber-400 transition cursor-pointer">
                 {item}
@@ -190,7 +190,7 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
           </div>
 
           {content.buttonText && (
-            <button className="bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2 rounded-lg text-xs font-bold transition shadow-sm">
+            <button className="bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2 rounded-lg text-xs font-bold transition shadow-sm shrink-0 whitespace-nowrap">
               {content.buttonText}
             </button>
           )}
