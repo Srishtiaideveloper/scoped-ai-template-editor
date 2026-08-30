@@ -43,13 +43,13 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
     borderRadius: styles.borderRadius,
     border: styles.border || (styles.borderColor ? `1px solid ${styles.borderColor}` : undefined),
     textAlign: styles.textAlign,
-    display: styles.display,
+    display: (element.type === 'grid' || element.type === 'section') ? 'block' : styles.display,
     flexDirection: styles.flexDirection,
     alignItems: styles.alignItems,
     justifyContent: styles.justifyContent,
-    gridTemplateColumns: styles.gridColumns,
-    gap: styles.gap,
-    width: styles.width,
+    gridTemplateColumns: (element.type === 'grid' || element.type === 'section') ? undefined : styles.gridColumns,
+    gap: (element.type === 'grid' || element.type === 'section') ? undefined : styles.gap,
+    width: styles.width || '100%',
     maxWidth: styles.maxWidth,
     height: styles.height,
     boxShadow: styles.boxShadow,
@@ -285,11 +285,23 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
         <div className="w-full space-y-6">
           {(content.title || content.subtitle) && (
             <div className="text-center space-y-2 mb-6">
-              {content.title && <h2 className="text-2xl font-bold text-slate-100">{content.title}</h2>}
+              {content.title && <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-100">{content.title}</h2>}
               {content.subtitle && <p className="text-sm text-slate-400 max-w-xl mx-auto">{content.subtitle}</p>}
             </div>
           )}
-          <div style={{ display: 'grid', gridTemplateColumns: styles.gridColumns, gap: styles.gap }}>
+          <div
+            className={`w-full grid gap-6 ${
+              activeViewport === 'mobile'
+                ? 'grid-cols-1'
+                : activeViewport === 'tablet'
+                ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3'
+                : 'grid-cols-1 md:grid-cols-3'
+            }`}
+            style={{
+              gridTemplateColumns: activeViewport === 'mobile' ? '1fr' : (styles.gridColumns || 'repeat(3, minmax(0, 1fr))'),
+              gap: styles.gap || '1.5rem',
+            }}
+          >
             {children}
           </div>
         </div>
@@ -347,11 +359,15 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
                   {content.badge}
                 </span>
               )}
-              {content.title && <h2 className="text-3xl font-extrabold text-slate-100">{content.title}</h2>}
+              {content.title && <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-100">{content.title}</h2>}
               {content.subtitle && <p className="text-sm text-slate-400 max-w-xl mx-auto">{content.subtitle}</p>}
             </div>
           )}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div
+            className={`w-full grid gap-6 ${
+              activeViewport === 'mobile' ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'
+            }`}
+          >
             {children}
           </div>
         </div>

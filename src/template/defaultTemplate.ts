@@ -105,9 +105,10 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
         backgroundColor: 'transparent',
         textColor: '#cbd5e1',
         padding: '3rem 1rem',
-        display: 'grid',
+        display: 'block',
         gridColumns: 'repeat(3, minmax(0, 1fr))',
         gap: '1.5rem',
+        width: '100%',
         maxWidth: '1200px',
         margin: '0 auto',
       },
@@ -116,6 +117,13 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
         subtitle: 'Our commitment to craft and radical transparency at every step of the supply chain.',
       },
       overrides: {
+        tablet: {
+          styles: {
+            gridColumns: 'repeat(3, minmax(0, 1fr))',
+            gap: '1rem',
+            padding: '2rem 1rem',
+          }
+        },
         mobile: {
           styles: {
             gridColumns: 'repeat(1, minmax(0, 1fr))',
