@@ -3,8 +3,8 @@ import { TemplateModel } from '../types/template';
 export const DEFAULT_TEMPLATE: TemplateModel = {
   id: 'template_lumina_coffee_roastery',
   version: '1.0.0',
-  title: 'Lumina Artisanal Coffee & Roastery',
-  description: 'A modern, responsive one-page landing page for an artisanal specialty coffee roaster.',
+  title: 'Lumina Artisanal Indian Single-Origin Roasters',
+  description: 'A modern, responsive landing page for an artisanal specialty coffee roastery sourcing from heritage estates in India.',
   revision: 1,
   lastModified: new Date().toISOString(),
   globalSettings: {
@@ -45,8 +45,8 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
       },
       baseContent: {
         title: '☕ LUMINA ROASTERS',
-        buttonText: 'Order Subscription',
-        items: ['Our Roasts', 'Origins', 'Brew Guides', 'Journal'],
+        buttonText: 'Order Fresh Roasts',
+        items: ['Our Indian Estates', 'Origins', 'Brew Guides', 'Coffee Journal'],
       },
       overrides: {},
     },
@@ -71,13 +71,13 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.6)',
       },
       baseContent: {
-        badge: '✨ Single-Origin Harvest 2026',
-        title: 'Precision-Crafted Specialty Coffee, Roasted to Pure Perfection.',
-        subtitle: 'We source micro-lots directly from high-altitude regenerative farms and roast in small batches for extraordinary aromatic clarity.',
-        buttonText: 'Explore Coffee Collection ➔',
+        badge: '✨ 100% Indian Shade-Grown Harvest 2026',
+        title: 'Freshly Roasted Single-Origin Specialty Coffee from the Western Ghats.',
+        subtitle: 'Handcrafted in micro-batches from third-generation family estates across Chikmagalur, Coorg, and Araku Valley for rich aroma and taste.',
+        buttonText: 'Explore Single-Origin Coffees ➔',
         buttonLink: '#products',
         imageUrl: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1000&q=80',
-        imageAlt: 'Steaming cup of artisanal specialty coffee with latte art',
+        imageAlt: 'Steaming cup of freshly brewed Indian artisanal specialty coffee',
       },
       overrides: {
         mobile: {
@@ -87,7 +87,7 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
             fontSize: '15px',
           },
           content: {
-            title: 'Precision-Crafted Specialty Coffee.',
+            title: 'Freshly Roasted Single-Origin Coffee from Western Ghats.',
           }
         }
       },
@@ -113,8 +113,8 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
         margin: '0 auto',
       },
       baseContent: {
-        title: 'Why Connoisseurs Choose Lumina',
-        subtitle: 'Our commitment to craft and radical transparency at every step of the supply chain.',
+        title: 'Why Coffee Lovers Across India Choose Lumina',
+        subtitle: 'Our promise of ethical estate sourcing, artisanal roasting, and delivery within 24 hours of roasting.',
       },
       overrides: {
         tablet: {
@@ -138,7 +138,7 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
       id: 'elem_card_feature_1',
       type: 'card',
       parentId: 'elem_features_grid',
-      name: 'Feature Card 1: Direct Trade',
+      name: 'Feature Card 1: Direct Estate Sourcing',
       revision: 1,
       updatedAt: new Date().toISOString(),
       baseStyles: {
@@ -150,9 +150,9 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
         boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3)',
       },
       baseContent: {
-        badge: '🌱 100% Direct Trade',
-        title: 'Ethical Farmer Partnerships',
-        text: 'We pay 300% above Fair Trade minimums directly to farming families in Huila, Yirgacheffe, and Antigua.',
+        badge: '🌱 100% Direct Estate Trade',
+        title: 'Ethical Planter Partnerships',
+        text: 'We pay premium prices directly to generational coffee planters in Chikmagalur, Coorg, and Biligirirangana Hills.',
         imageUrl: 'https://images.unsplash.com/photo-1611162458324-aae1eb4129a4?auto=format&fit=crop&w=600&q=80',
         imageAlt: 'Harvested ripe specialty coffee cherries at origin',
       },
@@ -163,7 +163,7 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
       id: 'elem_card_feature_2',
       type: 'card',
       parentId: 'elem_features_grid',
-      name: 'Feature Card 2: Micro-Batch',
+      name: 'Feature Card 2: Small-Batch Roasting',
       revision: 1,
       updatedAt: new Date().toISOString(),
       baseStyles: {
@@ -175,9 +175,9 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
         boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3)',
       },
       baseContent: {
-        badge: '🔥 Micro-Batch Roasting',
-        title: 'Custom Heat Curves',
-        text: 'Each lot is roasted on restored cast-iron drum roasters with real-time temperature telemetry for unmatched flavor profiles.',
+        badge: '🔥 Micro-Batch Drum Roasting',
+        title: 'Precision Temperature Curves',
+        text: 'Roasted in small 5kg batches in Bengaluru using customized heat profiles to bring out natural chocolate and caramel notes.',
         imageUrl: 'https://images.unsplash.com/photo-1518832553480-cd0e625ed3e6?auto=format&fit=crop&w=600&q=80',
         imageAlt: 'Specialty coffee roasting drum with golden flame',
       },
@@ -188,7 +188,7 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
       id: 'elem_card_feature_3',
       type: 'card',
       parentId: 'elem_features_grid',
-      name: 'Feature Card 3: Fresh Delivery',
+      name: 'Feature Card 3: Fresh Delivery Across India',
       revision: 1,
       updatedAt: new Date().toISOString(),
       baseStyles: {
@@ -200,9 +200,9 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
         boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3)',
       },
       baseContent: {
-        badge: '📦 Roasted & Shipped in 24h',
-        title: 'Peak Degassing Window',
-        text: 'Dispatched in nitrogen-flushed, 100% compostable valve pouches so coffee arrives at its sensory peak.',
+        badge: '📦 Roasted & Dispatched in 24h',
+        title: 'Guaranteed Peak Freshness',
+        text: 'Packed in nitrogen-flushed, eco-friendly valve pouches and delivered directly to your doorstep across all pin codes in India.',
         imageUrl: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=600&q=80',
         imageAlt: 'Fresh nitrogen-flushed artisan coffee beans',
       },
@@ -227,9 +227,9 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
         border: '1px solid rgba(212, 170, 79, 0.2)',
       },
       baseContent: {
-        badge: '🌟 Curated Micro-Lots',
-        title: 'Seasonal Single-Origin Offerings',
-        subtitle: 'Tasting notes of Jasmine, Wild Berries, Stone Fruit, and Dark Chocolate.',
+        badge: '🌟 Curated Indian Harvests',
+        title: 'Featured Single-Origin Estate Coffees',
+        subtitle: 'Tasting notes of Roasted Almonds, Wild Honey, Citrus Blossom, and Dark Chocolate.',
       },
       overrides: {},
     },
@@ -238,7 +238,7 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
       id: 'elem_product_card_1',
       type: 'card',
       parentId: 'elem_products_section',
-      name: 'Product Card: Ethiopian Yirgacheffe',
+      name: 'Product Card: Chikmagalur Heritage Arabica',
       revision: 1,
       updatedAt: new Date().toISOString(),
       baseStyles: {
@@ -249,10 +249,10 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
         border: '1px solid rgba(212, 170, 79, 0.25)',
       },
       baseContent: {
-        title: 'Ethiopia Yirgacheffe G1',
-        tagline: 'Washed Process • 2,100m MASL',
-        price: '$22.00 / 250g',
-        text: 'Bright bergamot, floral jasmine bouquet, and sweet candied lemon finish.',
+        title: 'Chikmagalur Heritage Arabica',
+        tagline: 'Washed Process • 1,400m Altitude • Baba Budan Giri',
+        price: '₹550 / 250g',
+        text: 'Sweet caramel aroma, smooth dark chocolate body, and a crisp citrus blossom finish. Ideal for South Indian Filter, Pour-over, and French Press.',
         buttonText: 'Add to Bag',
         imageUrl: 'https://images.unsplash.com/photo-1587734195503-904fca47e0e9?auto=format&fit=crop&w=600&q=80',
         imageAlt: 'Ethiopian Yirgacheffe roasted coffee beans package',
@@ -264,7 +264,7 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
       id: 'elem_product_card_2',
       type: 'card',
       parentId: 'elem_products_section',
-      name: 'Product Card: Colombian Geisha',
+      name: 'Product Card: Araku Valley Tribal Micro-Lot',
       revision: 1,
       updatedAt: new Date().toISOString(),
       baseStyles: {
@@ -276,11 +276,11 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
         boxShadow: '0 0 20px -5px rgba(212, 170, 79, 0.25)',
       },
       baseContent: {
-        badge: '🏆 Roaster’s Reserve',
-        title: 'Colombia Huila Pink Bourbon',
-        tagline: 'Anaerobic Natural • 1,950m MASL',
-        price: '$26.00 / 250g',
-        text: 'Tropical passionfruit, wild strawberry jam, and creamy lavender honey.',
+        badge: '🏆 Master Roaster’s Pick',
+        title: 'Araku Valley Tribal Micro-Lot',
+        tagline: 'Natural Sun-Dried • 1,200m Altitude • Eastern Ghats',
+        price: '₹620 / 250g',
+        text: 'Rich wild honey, ripe forest berries, toasted hazelnuts, and a velvety crema. Award-winning organic harvest cultivated by tribal farmers.',
         buttonText: 'Add to Bag',
         imageUrl: 'https://images.unsplash.com/photo-1517256064527-09c73fc73e38?auto=format&fit=crop&w=600&q=80',
         imageAlt: 'Specialty pour-over coffee carafe with rich crema',
@@ -293,7 +293,7 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
       id: 'elem_testimonial',
       type: 'testimonial',
       parentId: null,
-      name: 'Social Proof Testimonial',
+      name: 'Customer Testimonial',
       revision: 1,
       updatedAt: new Date().toISOString(),
       baseStyles: {
@@ -307,9 +307,9 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
         border: '1px solid rgba(255, 255, 255, 0.08)',
       },
       baseContent: {
-        badge: '★★★★★ 4.9/5 from 1,200+ Coffee Lovers',
-        title: '“The cleanest, most nuanced roast profile I have brewed in a decade of specialty coffee.”',
-        subtitle: '— Marcus Vance, Q-Grader & Coffee Director, Portland OR',
+        badge: '★★★★★ 4.9/5 from 3,500+ Indian Coffee Brewers',
+        title: '“The freshest, most aromatic single-estate roast I have brewed in India. The Chikmagalur filter roast is absolute perfection every morning.”',
+        subtitle: '— Rohan Malhotra, Certified Coffee Connoisseur & Home Brewer, Bengaluru',
         imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
       },
       overrides: {},
@@ -335,8 +335,8 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
         boxShadow: '0 15px 35px -10px rgba(197, 145, 50, 0.25)',
       },
       baseContent: {
-        title: 'Experience Fresh Roasts at Home',
-        subtitle: 'Subscribe today and receive our limited-edition tasting glass plus 15% off your first 3 deliveries.',
+        title: 'Get Freshly Roasted Coffee Delivered Across India',
+        subtitle: 'Subscribe to our monthly Roastery Plan and get 15% off plus a complimentary brass coffee measuring spoon with your first order.',
         buttonText: 'Join the Roastery Club ➔',
       },
       overrides: {},
@@ -359,8 +359,8 @@ export const DEFAULT_TEMPLATE: TemplateModel = {
         border: '1px solid rgba(255, 255, 255, 0.05)',
       },
       baseContent: {
-        text: '© 2026 Lumina Coffee Roastery Inc. All rights reserved. Sourced ethically worldwide.',
-        items: ['Privacy Policy', 'Terms of Service', 'Wholesale Inquiries', 'Sustainability Report'],
+        text: '© 2026 Lumina Artisanal Coffee Roasters Pvt Ltd. Roasted with pride in Bengaluru, Karnataka. Sourced ethically from Western & Eastern Ghats.',
+        items: ['Privacy Policy', 'Terms of Service', 'Estate Partnerships', 'Wholesale & Café Enquiries'],
       },
       overrides: {},
     },
