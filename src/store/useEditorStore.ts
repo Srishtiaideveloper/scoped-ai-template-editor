@@ -16,8 +16,8 @@ import { generateDeterministicProposal } from '../core/aiEngine';
 import { restoreElementSnapshot } from '../core/historyEngine';
 import { validateTemplateJson } from '../core/validator';
 
-const STORAGE_KEY = 'scoped_ai_template_editor_state_v1';
-const STORAGE_HISTORY_KEY = 'scoped_ai_template_editor_history_v1';
+const STORAGE_KEY = 'scoped_ai_template_editor_state_v2';
+const STORAGE_HISTORY_KEY = 'scoped_ai_template_editor_history_v2';
 
 export type ViewMode = 'canvas' | 'code' | 'split';
 
