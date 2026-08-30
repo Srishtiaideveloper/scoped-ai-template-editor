@@ -137,7 +137,7 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
       data-element-id={element.id}
       onClick={onSelect}
       style={inlineStyles}
-      className={`relative transition-all duration-150 group cursor-pointer ${
+      className={`relative transition-all duration-150 group cursor-pointer max-w-full box-border ${
         isSelected
           ? 'ring-2 ring-amber-500 ring-offset-2 ring-offset-slate-950 z-20'
           : 'hover:ring-1 hover:ring-amber-500/40 hover:ring-offset-1 hover:ring-offset-slate-900'
@@ -161,9 +161,9 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
 
       {/* Render Component Content based on Element Type */}
       {element.type === 'navbar' && (
-        <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 w-full">
+        <div className="flex items-center justify-between gap-2 w-full overflow-hidden">
           <div
-            className="text-base sm:text-lg font-extrabold tracking-tight cursor-text flex items-center gap-2 text-amber-300 shrink-0"
+            className="text-sm font-extrabold tracking-tight cursor-text flex items-center gap-1.5 text-amber-300 min-w-0 truncate"
             onDoubleClick={(e) => handleDoubleClick(e, content.title || '')}
           >
             {isInlineEditing ? (
@@ -174,24 +174,31 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
                 onChange={(e) => setTempText(e.target.value)}
                 onBlur={() => saveInlineEdit('title')}
                 onKeyDown={(e) => e.key === 'Enter' && saveInlineEdit('title')}
-                className="bg-slate-900 text-amber-300 px-2 py-1 rounded border border-amber-500 focus:outline-none"
+                className="bg-slate-900 text-amber-300 px-2 py-1 rounded border border-amber-500 focus:outline-none w-full text-xs"
               />
             ) : (
-              content.title
+              <span className="truncate">{content.title}</span>
             )}
           </div>
 
-          <div className="hidden lg:flex items-center gap-6 text-sm text-slate-300 shrink-0">
-            {content.items?.map((item, idx) => (
-              <span key={idx} className="hover:text-amber-400 transition cursor-pointer">
-                {item}
-              </span>
-            ))}
-          </div>
+          {activeViewport !== 'mobile' && (
+            <div className="hidden lg:flex items-center gap-4 text-xs text-slate-300 shrink-0">
+              {content.items?.map((item, idx) => (
+                <span key={idx} className="hover:text-amber-400 transition cursor-pointer whitespace-nowrap">
+                  {item}
+                </span>
+              ))}
+            </div>
+          )}
 
-          {content.buttonText && (
-            <button className="bg-amber-500 hover:bg-amber-400 text-slate-950 px-4 py-2 rounded-lg text-xs font-bold transition shadow-sm shrink-0 whitespace-nowrap">
+          {content.buttonText && activeViewport !== 'mobile' && (
+            <button className="bg-amber-500 hover:bg-amber-400 text-slate-950 px-3 py-1.5 rounded-lg text-[10px] font-bold transition shadow-sm shrink-0 whitespace-nowrap">
               {content.buttonText}
+            </button>
+          )}
+          {content.buttonText && activeViewport === 'mobile' && (
+            <button className="bg-amber-500 hover:bg-amber-400 text-slate-950 px-2 py-1 rounded text-[9px] font-bold transition shadow-sm shrink-0">
+              Subscribe
             </button>
           )}
         </div>
@@ -207,7 +214,7 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
           )}
 
           <h1
-            className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-100 max-w-3xl leading-tight"
+            className="text-2xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-100 max-w-3xl leading-tight text-center break-words"
             onDoubleClick={(e) => handleDoubleClick(e, content.title || '')}
           >
             {isInlineEditing ? (
@@ -216,7 +223,7 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
                 autoFocus
                 onChange={(e) => setTempText(e.target.value)}
                 onBlur={() => saveInlineEdit('title')}
-                className="w-full bg-slate-900 text-amber-300 p-2 rounded border border-amber-500 focus:outline-none text-2xl"
+                className="w-full bg-slate-900 text-amber-300 p-2 rounded border border-amber-500 focus:outline-none text-xl sm:text-2xl"
                 rows={2}
               />
             ) : (
@@ -225,16 +232,16 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
           </h1>
 
           <p
-            className="text-base sm:text-lg text-slate-400 max-w-2xl font-light"
+            className="text-sm sm:text-base md:text-lg text-slate-400 max-w-2xl font-light text-center break-words"
             onDoubleClick={(e) => handleDoubleClick(e, content.subtitle || '')}
           >
             {content.subtitle}
           </p>
 
           {/* REAL MOVING STEAM COFFEE CUP SHOWCASE */}
-          <div className="my-4 relative flex flex-col items-center justify-center">
+          <div className="my-4 relative flex flex-col items-center justify-center max-w-full">
             {/* Ambient Radial Golden Glow */}
-            <div className="absolute w-64 h-64 bg-amber-500/15 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
+            <div className="absolute w-48 sm:w-64 h-48 sm:h-64 bg-amber-500/15 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
 
             {/* Steaming Wisps Rising Above Cup */}
             <div className="relative w-32 h-16 pointer-events-none flex justify-center items-end gap-3 mb-1">
@@ -244,7 +251,7 @@ export const ElementRenderer: React.FC<ElementRendererProps> = ({
             </div>
 
             {/* Real Photographic Steaming Artisan Cup with Glassmorphism Frame */}
-            <div className="relative w-72 h-44 rounded-2xl overflow-hidden border-2 border-amber-500/40 shadow-2xl group/cup">
+            <div className="relative w-64 sm:w-72 h-40 sm:h-44 rounded-2xl overflow-hidden border-2 border-amber-500/40 shadow-2xl group/cup max-w-full">
               <img
                 src={content.imageUrl || 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80'}
                 alt="Real artisan pour of steaming specialty coffee"

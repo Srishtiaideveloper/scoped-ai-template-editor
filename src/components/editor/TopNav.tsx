@@ -159,30 +159,33 @@ export const TopNav: React.FC<TopNavProps> = ({
         <div className="flex items-center bg-slate-950 p-0.5 rounded-lg border border-slate-800">
           <button
             onClick={() => setViewMode('canvas')}
-            className={`p-1.5 rounded text-xs transition ${
-              viewMode === 'canvas' ? 'bg-slate-800 text-amber-400' : 'text-slate-400 hover:text-slate-200'
+            className={`flex items-center gap-1 px-2.5 py-1 rounded text-xs transition font-medium ${
+              viewMode === 'canvas' ? 'bg-amber-500 text-slate-950 font-bold shadow-sm' : 'text-slate-400 hover:text-slate-200'
             }`}
             title="Visual Canvas Surface"
           >
             <Layout className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Canvas</span>
           </button>
           <button
             onClick={() => setViewMode('split')}
-            className={`p-1.5 rounded text-xs transition ${
-              viewMode === 'split' ? 'bg-slate-800 text-amber-400' : 'text-slate-400 hover:text-slate-200'
+            className={`flex items-center gap-1 px-2.5 py-1 rounded text-xs transition font-medium ${
+              viewMode === 'split' ? 'bg-amber-500 text-slate-950 font-bold shadow-sm' : 'text-slate-400 hover:text-slate-200'
             }`}
             title="Split Canvas + Code"
           >
             <Columns className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Split</span>
           </button>
           <button
             onClick={() => setViewMode('code')}
-            className={`p-1.5 rounded text-xs transition ${
-              viewMode === 'code' ? 'bg-slate-800 text-amber-400' : 'text-slate-400 hover:text-slate-200'
+            className={`flex items-center gap-1 px-2.5 py-1 rounded text-xs transition font-medium ${
+              viewMode === 'code' ? 'bg-amber-500 text-slate-950 font-bold shadow-sm' : 'text-slate-400 hover:text-slate-200'
             }`}
             title="Code Surface"
           >
             <Code2 className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Code</span>
           </button>
         </div>
 
